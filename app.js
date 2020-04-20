@@ -1,10 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const postRoute = require('./Routes/posts')
+const bodyParser = require('body-parser')
 
 
 const app = express()
 dotenv.config()
+app.use(bodyParser.json())
+
 
 
 // after express is invoked, declare the port that the server should choose from and provide a message
@@ -19,3 +23,14 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true  },
   () => console.log('database is connected')
 )
+
+app.use('/posts', postRoute)
+
+app.use('/posts', (req,res) => {
+  res.send('posts')
+})
+
+
+
+
+
